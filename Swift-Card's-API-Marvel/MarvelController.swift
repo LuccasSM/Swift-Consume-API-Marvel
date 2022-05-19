@@ -52,14 +52,14 @@ class MarvelController: UIViewController {
 
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalToConstant: 150),
-            button.widthAnchor.constraint(equalToConstant: 150),
+            button.heightAnchor.constraint(equalToConstant: 50),
             button.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
             button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
             collectionView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 10),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
 
@@ -67,7 +67,7 @@ class MarvelController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         MarvelApiENdereco.servicoApi { api in
             DispatchQueue.main.async {
-                self.api = Array(api.data.shuffled().prefix(8))
+                self.api = Array(api.data.shuffled().prefix(20))
                 self.collectionView.reloadData()
             }
         }
@@ -80,7 +80,7 @@ class MarvelController: UIViewController {
     @objc func startApi() {
         MarvelApiENdereco.servicoApi { api in
             DispatchQueue.main.async {
-                self.api = Array(api.data.shuffled().prefix(8))
+                self.api = Array(api.data.shuffled().prefix(20))
                 self.collectionView.reloadData()
             }
         }
@@ -100,7 +100,7 @@ extension MarvelController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 16, left: 16, bottom: 161, right: 16)
+        return UIEdgeInsets(top: 16, left: 16, bottom: 32, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -114,6 +114,6 @@ extension MarvelController: UICollectionViewDataSource {
 extension MarvelController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - (3 * 16)) / 2
-        return CGSize(width: width, height: width + 46)
+        return CGSize(width: width, height: width)
     }
 }
